@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
 import Typography from '@mui/material/Typography';
+import { useCallback, useMemo, useState } from "react";
 import Layout from "../../Components/Layout";
 import useMovies from "./useMovies";
 import GenreList from "../../Components/GenreList";
