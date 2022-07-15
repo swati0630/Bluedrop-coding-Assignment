@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from "react";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function App() {
+
+const MovieList = lazy(() => import("./Modules/MovieList"));
+const MovieDetails = lazy(() => import("./Modules/MovieDetails"));
+
+const theme = createTheme();
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Suspense fallback={<Typography variant="h2">Loading</Typography>}>
+        <Routes>
+          <Route path="/" element={<Navigate to="/movie" replace />} />
+          <Route index path="/movie" element={<MovieList />} />
+          <Route path="/movie/:title" element={<MovieDetails />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+    </ThemeProvider>
   );
 }
-
-export default App;
